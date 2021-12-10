@@ -6,5 +6,5 @@
 ^!T:: Run, C:\Users\parke\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe
 ; Open the terminal with Alt+Shift+T, just like GNOME!
 
-^!s:: Send ≅ ; Send Congruent
-^!a:: Send ∠ ; Send Angle
+^!s:: Send {U+8773} ; Send Congruent
+^!a:: Send {U+D0} ; Send Angle
