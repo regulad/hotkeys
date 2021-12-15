@@ -12,3 +12,7 @@
 ^!d:: Send {U+2221} ; Send Measured Angle
 ^!<:: Send {U+2264} ; Send Less than or equal to
 ^!>:: Send {U+2265} ; Send greater than or equal to
+^!0:: Send {U+00B1} ; send plus/minus
+
+RAlt & j:: AltTab ; move right in the alttab menu
+RAlt & k:: ShiftAltTab ; move left
