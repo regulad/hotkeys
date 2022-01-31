@@ -3,7 +3,8 @@
 #+I:: Winset, Alwaysontop, , A 
 ; Make a window stick to top with Win+Shift+I
 
-^!T:: Run, Get-AppxPackage *WindowsTerminal* | % {& Explorer.exe $(‚Shell:AppsFolder\' + $_.PackageFamilyName + ‚!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
+; ^!T:: Run, Get-AppxPackage *WindowsTerminal* | % {& Explorer.exe $(‚Shell:AppsFolder\' + $_.PackageFamilyName + ‚!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
+; fixme
 ; Open the terminal with Alt+Shift+T, just like GNOME!
 
 ^!s:: Send {U+2245} ; Send Congruent
