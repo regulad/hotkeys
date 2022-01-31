@@ -19,10 +19,10 @@
 ^!Right:: Send {U+2192} ; send right arrow
 ^!Down:: Send {U+2193} ; send down arrow
 
-!+e:: Send {U+0200} ; upper left grave
-!e:: Send {U+0232} ; left grave
-^!+e:: Send {U+0201} ; upper right grave
-^!e:: Send {U+0233} ; right grave
+!+e:: Send {U+00C8} ; upper left grave
+!e:: Send {U+00E8} ; left grave
+^!+e:: Send {U+00C9} ; upper acute e
+^!e:: Send {U+00E9} ; acute e
 
 RAlt & k:: AltTab ; move right in the alttab menu
 RAlt & j:: ShiftAltTab ; move left
