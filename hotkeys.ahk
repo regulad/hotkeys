@@ -14,7 +14,7 @@
 ^!<:: Send {U+2264} ; Send Less than or equal to
 ^!>:: Send {U+2265} ; Send greater than or equal to
 ^!0:: Send {U+00B1} ; send plus/minus
-^!t:: Send {U+20E4} ; send triangle
+^!t:: Send {U+25B3} ; send triangle
 ^!Left:: Send {U+2190} ; send left arrow
 ^!Up:: Send {U+2191} ; send up arrow
 ^!Right:: Send {U+2192} ; send right arrow
