@@ -3,8 +3,7 @@
 ; https://github.com/regulad/hotkeys
 
 ; Get primary monitor information
-PrimaryMonitor := MonitorGetPrimary()
-PrimaryMonitorInfo := MonitorGetWorkArea(PrimaryMonitor)
+PrimaryMonitorIndex := MonitorGetPrimary()
 
 ; Create an array to store the GUI windows
 overlay_windows := []
@@ -18,12 +17,12 @@ ToggleOverlay() {
     if (overlay_windows.Length = 0) {
         ; Create overlays
         loop MonitorGetCount() {
-            current_monitor := MonitorGetWorkArea(A_Index)
+            current_monitor := MonitorGetWorkArea(A_Index, &current_left, &current_top, &current_right, &current_bottom)
             
             ; Check if this monitor is not the primary monitor
             if (current_monitor != PrimaryMonitorInfo) {
-                width := current_monitor.Right - current_monitor.Left
-                height := current_monitor.Bottom - current_monitor.Top
+                width := current_right - current_left
+                height := current_bottom - current_top
                 
                 new_overlay := Gui()
                 new_overlay.Opt("+AlwaysOnTop -Caption +ToolWindow")
