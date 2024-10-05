@@ -39,7 +39,7 @@ ToggleOverlay() {
     }
 }
 
-^!T:: Run("wt.exe")  ; Launch Windows Terminal with Ctrl+Alt+T
+#!T:: Run("wt.exe")  ; Launch Windows Terminal with Win+Alt+T
 
 ^!s:: Send("{U+2245}") ; Send Congruent
 
