@@ -2,33 +2,36 @@
 #SingleInstance Force
 ; https://github.com/regulad/hotkeys
 
-; Store information about all monitors
-MonitorGetWorkArea(1, &primary_left, &primary_top, &primary_right, &primary_bottom)
-primary_width := primary_right - primary_left
-primary_height := primary_bottom - primary_top
+; Get primary monitor information
+PrimaryMonitor := MonitorGetPrimary()
+PrimaryMonitorInfo := MonitorGetWorkArea(PrimaryMonitor)
 
 ; Create an array to store the GUI windows
 overlay_windows := []
 
 ; Hotkey to toggle overlay (Ctrl+Alt+B for "Blinders")
-^!b:: ToggleOverlay()
+^!b::ToggleOverlay
 
 ToggleOverlay() {
-    global overlay_windows
+    global overlay_windows, PrimaryMonitorInfo
     
     if (overlay_windows.Length = 0) {
         ; Create overlays
-        loop MonitorGetCount() - 1 {
-            MonitorGetWorkArea(A_Index + 1, &left, &top, &right, &bottom)
-            width := right - left
-            height := bottom - top
+        loop MonitorGetCount() {
+            current_monitor := MonitorGetWorkArea(A_Index)
             
-            new_overlay := Gui()
-            new_overlay.Opt("+AlwaysOnTop -Caption +ToolWindow")
-            new_overlay.BackColor := "Black"
-            new_overlay.Show(Format("x{} y{} w{} h{}", left, top, width, height))
-            
-            overlay_windows.Push(new_overlay)
+            ; Check if this monitor is not the primary monitor
+            if (current_monitor != PrimaryMonitorInfo) {
+                width := current_monitor.Right - current_monitor.Left
+                height := current_monitor.Bottom - current_monitor.Top
+                
+                new_overlay := Gui()
+                new_overlay.Opt("+AlwaysOnTop -Caption +ToolWindow")
+                new_overlay.BackColor := "Black"
+                new_overlay.Show(Format("x{} y{} w{} h{}", current_monitor.Left, current_monitor.Top, width, height))
+                
+                overlay_windows.Push(new_overlay)
+            }
         }
     } else {
         ; Remove overlays
