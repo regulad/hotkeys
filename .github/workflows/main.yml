@@ -2,10 +2,13 @@ name: Compile AutoHotkey Script
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
+
+env:
+  AHK_VERSION: 2.0.18
 
 jobs:
   build:
@@ -14,13 +17,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Scoop
-        run: |
-          iwr -useb get.scoop.sh | iex
+      - name: Cache Scoop
+        uses: actions/cache@v3
+        with:
+          path: ~/scoop
+          key: ${{ runner.os }}-scoop-${{ env.AHK_VERSION }}
 
-      - name: Install AutoHotkey
+      - name: Install Scoop and AutoHotkey
         run: |
-          scoop install autohotkey
+          if (!(Test-Path ~/scoop)) {
+            iwr -useb get.scoop.sh | iex
+          }
+          scoop bucket add extras
+          scoop install extras/autohotkey@${{ env.AHK_VERSION }}
 
       - name: Create output directory
         run: mkdir -Force out
