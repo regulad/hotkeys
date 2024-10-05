@@ -20,7 +20,7 @@ ToggleOverlay() {
             current_monitor := MonitorGetWorkArea(A_Index, &current_left, &current_top, &current_right, &current_bottom)
             
             ; Check if this monitor is not the primary monitor
-            if (current_monitor != PrimaryMonitorInfo) {
+            if (current_monitor != PrimaryMonitorIndex) {
                 width := current_right - current_left
                 height := current_bottom - current_top
                 
