@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AHK2EXE_VERSION: v1.1.37.02a0
+  AHK2EXE_VERSION: Ahk2Exe1.1.37.02a0
 
 jobs:
   build:
@@ -29,10 +29,7 @@ jobs:
 
       - name: Clone Ahk2Exe repository
         run: |
-          git clone https://github.com/AutoHotkey/Ahk2Exe.git
-          cd Ahk2Exe
-          git fetch --all --tags
-          git checkout tags/${{ env.AHK2EXE_VERSION }}
+          git clone --depth 1 --branch ${{ env.AHK2EXE_VERSION }} https://github.com/AutoHotkey/Ahk2Exe.git
 
       - name: Create output directory
         run: mkdir out
