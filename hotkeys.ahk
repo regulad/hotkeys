@@ -27,7 +27,7 @@ ToggleOverlay() {
                 new_overlay := Gui()
                 new_overlay.Opt("+AlwaysOnTop -Caption +ToolWindow")
                 new_overlay.BackColor := "Black"
-                new_overlay.Show(Format("x{} y{} w{} h{}", current_monitor.Left, current_monitor.Top, width, height))
+                new_overlay.Show(Format("x{} y{} w{} h{}", current_left, current_top, width, height))
                 
                 overlay_windows.Push(new_overlay)
             }
