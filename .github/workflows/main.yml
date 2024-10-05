@@ -27,16 +27,21 @@ jobs:
         run: |
           if (!(Test-Path ~/scoop)) {
             iwr -useb get.scoop.sh | iex
+            scoop bucket add extras
+            scoop install extras/autohotkey@${{ env.AHK_VERSION }}
+          } else {
+            $env:PATH += ";$HOME\scoop\shims"
+            scoop update
+            scoop bucket add extras
+            scoop install extras/autohotkey@${{ env.AHK_VERSION }}
           }
-          scoop bucket add extras
-          scoop install extras/autohotkey@${{ env.AHK_VERSION }}
 
       - name: Create output directory
         run: mkdir -Force out
 
       - name: Compile AutoHotkey script
         run: |
-          AutoHotkey.exe /in "hotkeys.ahk" /out "out\hotkeys.exe" /icon "favicon.ico"
+          autohotkey /in "hotkeys.ahk" /out "out\hotkeys.exe" /icon "favicon.ico"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
