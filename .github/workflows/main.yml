@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AHK2EXE_VERSION: v1.1.37.02
+  AHK2EXE_VERSION: v1.1.37.02a0
 
 jobs:
   build:
