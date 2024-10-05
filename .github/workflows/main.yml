@@ -35,7 +35,7 @@ jobs:
           icon: favicon.ico
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: compiled-binary
           path: ${{ steps.ahk2exe.outputs.binary }}
