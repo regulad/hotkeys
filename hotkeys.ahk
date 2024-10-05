@@ -72,7 +72,3 @@ ToggleOverlay() {
 ^!+e:: Send("{U+00C9}") ; upper acute e
 
 ^!e:: Send("{U+00E9}") ; acute e
-
-RAlt & k:: AltTab() ; move right in the alttab menu
-
-RAlt & j:: ShiftAltTab() ; move left
