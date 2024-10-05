@@ -1,5 +1,4 @@
 name: Compile AutoHotkey Script
-
 on:
   push:
     branches: [ master ]
@@ -17,31 +16,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Cache Scoop
-        uses: actions/cache@v3
-        with:
-          path: ~/scoop
-          key: ${{ runner.os }}-scoop-${{ env.AHK_VERSION }}
-
       - name: Install Scoop and AutoHotkey
+        shell: powershell
         run: |
-          if (!(Test-Path ~/scoop)) {
-            iwr -useb get.scoop.sh | iex
-            scoop bucket add extras
-            scoop install extras/autohotkey@${{ env.AHK_VERSION }}
-          } else {
-            $env:PATH += ";$HOME\scoop\shims"
-            scoop update
-            scoop bucket add extras
-            scoop install extras/autohotkey@${{ env.AHK_VERSION }}
-          }
+          iwr -useb get.scoop.sh | iex
+          scoop bucket add extras
+          scoop install extras/autohotkey@${{ env.AHK_VERSION }}
 
       - name: Create output directory
         run: mkdir -Force out
 
       - name: Compile AutoHotkey script
+        shell: powershell
         run: |
-          autohotkey /in "hotkeys.ahk" /out "out\hotkeys.exe" /icon "favicon.ico"
+          C:\Users\runneradmin\scoop\shims\autohotkey.exe /in "hotkeys.ahk" /out "out\hotkeys.exe" /icon "favicon.ico"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
