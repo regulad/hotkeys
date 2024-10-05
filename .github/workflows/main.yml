@@ -27,12 +27,12 @@ jobs:
           $ahkExe = if ([Environment]::Is64BitOperatingSystem) { "AutoHotkey64.exe" } else { "AutoHotkey32.exe" }
           echo "AHK_EXE=AutoHotkey\$ahkExe" >> $env:GITHUB_ENV
 
-      - name: Checkout Ahk2Exe repository
-        uses: actions/checkout@v3
-        with:
-          repository: AutoHotkey/Ahk2Exe
-          path: Ahk2Exe
-          ref: ${{ env.AHK2EXE_VERSION }}
+      - name: Clone Ahk2Exe repository
+        run: |
+          git clone https://github.com/AutoHotkey/Ahk2Exe.git
+          cd Ahk2Exe
+          git fetch --all --tags
+          git checkout tags/${{ env.AHK2EXE_VERSION }}
 
       - name: Create output directory
         run: mkdir out
