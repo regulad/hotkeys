@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AHK_VERSION: 2.0.18
+  AHK2EXE_VERSION: v1.1.37.02
 
 jobs:
   build:
@@ -16,20 +16,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Scoop and AutoHotkey
-        shell: powershell
+      - name: Download and Extract AutoHotkey
         run: |
-          iwr -useb get.scoop.sh | iex
-          scoop bucket add extras
-          scoop install extras/autohotkey@${{ env.AHK_VERSION }}
+          $url = "https://www.autohotkey.com/download/ahk-v2.zip"
+          Invoke-WebRequest -Uri $url -OutFile "ahk.zip"
+          Expand-Archive -Path "ahk.zip" -DestinationPath "AutoHotkey"
+          
+      - name: Determine AutoHotkey executable
+        run: |
+          $ahkExe = if ([Environment]::Is64BitOperatingSystem) { "AutoHotkey64.exe" } else { "AutoHotkey32.exe" }
+          echo "AHK_EXE=AutoHotkey\$ahkExe" >> $env:GITHUB_ENV
+
+      - name: Checkout Ahk2Exe repository
+        uses: actions/checkout@v3
+        with:
+          repository: AutoHotkey/Ahk2Exe
+          path: Ahk2Exe
+          ref: ${{ env.AHK2EXE_VERSION }}
 
       - name: Create output directory
-        run: mkdir -Force out
+        run: mkdir out
 
       - name: Compile AutoHotkey script
-        shell: powershell
         run: |
-          C:\Users\runneradmin\scoop\shims\autohotkey.exe /in "hotkeys.ahk" /out "out\hotkeys.exe" /icon "favicon.ico"
+          & "${{ env.AHK_EXE }}" Ahk2Exe\Ahk2Exe.ahk /in "hotkeys.ahk" /out "out\hotkeys.exe" /icon "favicon.ico"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
